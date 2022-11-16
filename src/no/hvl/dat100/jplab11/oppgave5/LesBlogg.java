@@ -21,8 +21,35 @@ public class LesBlogg {
 	private static String BILDE = "BILDE";
 
 	public static Blogg les(String mappe, String filnavn) {
+		BufferedReader leser;
+		PrintWriter skriver;
+		Blogg innlegg = null;
+		int nesteLedige = 0;
+		try {
+			leser = new BufferedReader(new FileReader(mappe + filnavn));
+			innlegg = new Blogg(leser.read());
+			Innlegg[] innleggstabell = innlegg.getSamling();
+			nesteLedige = innlegg.getAntall();
 
-		throw new UnsupportedOperationException(TODO.method());
+			for (int i = 0; i < innleggstabell.length; i++) {
+				while (leser.readLine() != null) {
+					if (leser.readLine().equals(TEKST)) {
+						//Innlegg bilde = 
+						//innleggstabell[nesteLedige] = bilde;
+						nesteLedige++;
+					}
+					if (leser.readLine().equals(BILDE)) {
+						//Innlegg bilde = Bilde(id, bruker, dato, likes, tekst, url);
+						//innleggstabell[nesteLedige] = bilde;  
+						nesteLedige++;
 
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return innlegg;
 	}
+
 }
